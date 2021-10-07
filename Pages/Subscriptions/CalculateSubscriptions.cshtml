@@ -1,0 +1,32 @@
+﻿@page
+@model InspiringMagazine20056663Prac3.Pages.Subscriptions.CalcSubscriptionStats__Model
+@{
+}
+<h2>Subscription Statistics based on Number of Issues</h2>
+<br />
+
+<div>
+    @* .table is a Bootstrap class giving table styles *@
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.SubscriptionStatistics[0].numOfIssues)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.SubscriptionStatistics[0].SubscriptionCount)
+            </th>
+        </tr>
+
+        @foreach (var item in Model.SubscriptionStatistics)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.numOfIssues)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubscriptionCount)
+                </td>
+            </tr>
+        }
+    </table>
+</div>

@@ -1,0 +1,79 @@
+﻿@page
+@model InspiringMagazine20056663Prac3.Pages.Customers.MyDetailsModel
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "MyDetails";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>My Details</h2>
+
+@if ((string)ViewData["ExistInDB"] == "true")
+{
+    <h4>Welcome, @UserManager.GetUserName(User)! You can edit your details below. </h4>
+}
+else
+{
+    <h4>Welcome, @UserManager.GetUserName(User)! You should enter your details below before browsing other links. </h4>
+}
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Myself.givenName" class="control-label"></label>
+                <input asp-for="Myself.givenName" class="form-control" />
+                <span asp-validation-for="Myself.givenName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Myself.familyName" class="control-label"></label>
+                <input asp-for="Myself.familyName" class="form-control" />
+                <span asp-validation-for="Myself.familyName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Myself.dateOfBirth" class="control-label"></label>
+                <input asp-for="Myself.dateOfBirth" class="form-control" />
+                <span asp-validation-for="Myself.dateOfBirth" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Myself.mobileNumber" class="control-label"></label>
+                <input asp-for="Myself.mobileNumber" class="form-control" />
+                <span asp-validation-for="Myself.mobileNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Myself.postalCode" class="control-label"></label>
+                <input asp-for="Myself.postalCode" class="form-control" />
+                <span asp-validation-for="Myself.postalCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (ViewData["SuccessDB"] != null)
+{
+    <hr />
+    <h5>
+        Thanks. You have successfully updated your details with your name
+        <strong>@Model.Myself.givenName @Model.Myself.familyName</strong>
+        and your mobile number <strong>@Model.Myself.mobileNumber</strong>.
+
+    </h5>
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+
+

@@ -1,0 +1,81 @@
+﻿@page
+@model InspiringMagazine20056663Prac3.Pages.Subscriptions.CreateModel
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "MyDetails";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Create</h1>
+
+    <h4>Subscription</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="SubscriptionInput.magazineID" class="control-label"></label>
+                    <select asp-for="SubscriptionInput.magazineID" class="form-control" asp-items="ViewBag.magazineID"></select>
+                </div>
+
+
+                @*<div class="form-group">
+                           <label asp-for="SubscriptionInput.customerEmail" class="control-label"></label>
+                           <select asp-for="SubscriptionInput.customerEmail" class="form-control" asp-items="ViewBag.customerEmail"></select>
+                    </div>*@
+
+
+                <div class="form-group">
+                    <label asp-for="SubscriptionInput.numOfIssues" class="control-label"></label>
+                    <input asp-for="SubscriptionInput.numOfIssues" class="form-control" />
+                    <span asp-validation-for="SubscriptionInput.numOfIssues" class="text-danger"></span>
+                </div>
+
+                @*<div class="form-group">
+                        <label asp-for="Subscription.TotalCost" class="control-label"></label>
+                        <input asp-for="Subscription.TotalCost" class="form-control" />
+                        <span asp-validation-for="Subscription.TotalCost" class="text-danger"></span>
+                    </div>*@
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+@if (ViewData["SuccessDB"] != null)
+{
+    <h5>
+        Thanks. You have successfully Submitted a subscription for the magazine
+        <strong>@ViewData["MagazineName"] </strong>
+        with the amount of  <strong>@ViewData["NoOfIssues"]</strong> issues
+        and a total cost of @ViewData["Total"].
+    </h5>
+}
+
+
+@if (!(SignInManager.IsSignedIn(User)))
+{
+    <h5>
+        Please log in before making a new subscription.
+    </h5>
+}
+
+<div><a asp-page="Index">Back to List</a></div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

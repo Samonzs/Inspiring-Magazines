@@ -1,0 +1,76 @@
+﻿@page
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model InspiringMagazine20056663Prac3.Pages.Subscriptions.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <h1>Index</h1>
+
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Subscription[0].TheCustomer)
+                </th>
+                <th>
+                    <a asp-page="Index" asp-route-sortorder="@ViewData["NextMagazine"]">
+                        @Html.DisplayNameFor(model => model.Subscription[0].TheMagazine.magazineName)
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="Index" asp-route-sortorder="@ViewData["NextNumOfIssues"]">
+                        @Html.DisplayNameFor(model => model.Subscription[0].numOfIssues)
+                    </a>
+                </th>
+                <th>
+                    <a asp-page="Index" asp-route-sortorder="@ViewData["NextTotalCost"]">
+                        @Html.DisplayNameFor(model => model.Subscription[0].TotalCost)
+                    </a>
+                </th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model.Subscription)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TheCustomer.givenName) @Html.DisplayFor(modelItem => item.TheCustomer.familyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TheMagazine.magazineName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.numOfIssues)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TotalCost)
+                    </td>
+
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+}
+
+@if (!(SignInManager.IsSignedIn(User)))
+{
+    <h5>
+        Please log in before viewing. 
+    </h5>
+}
